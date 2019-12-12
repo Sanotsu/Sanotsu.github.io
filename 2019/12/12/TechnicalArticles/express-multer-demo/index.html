@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Express+multer 文件上传,并在 router 中指定文件存放路径 | 知己识人</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="nodejs,multer">
+    
+    <meta name="description" content="Express+multer 文件上传,并在 router 中指定文件存放路径 内容简单说明&amp;emsp;&amp;emsp;文件上传是 web 开发中比较常见的一个功能虽然说起来是文件上传，实际上，可以看做是对 multipart/form-data 数据的处理。在 npm 中,有很多处理类似数据的库，包括周下载量近 2kw 的 form-data，周下载量近 3mw 的 formidable。 &amp;ems">
+<meta name="keywords" content="nodejs,multer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Express+multer 文件上传,并在 router 中指定文件存放路径">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/TechnicalArticles/express-multer-demo/index.html">
+<meta property="og:site_name" content="知己识人">
+<meta property="og:description" content="Express+multer 文件上传,并在 router 中指定文件存放路径 内容简单说明&amp;emsp;&amp;emsp;文件上传是 web 开发中比较常见的一个功能虽然说起来是文件上传，实际上，可以看做是对 multipart/form-data 数据的处理。在 npm 中,有很多处理类似数据的库，包括周下载量近 2kw 的 form-data，周下载量近 3mw 的 formidable。 &amp;ems">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/other/programming.png">
+<meta property="og:updated_time" content="2019-12-12T12:35:43.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Express+multer 文件上传,并在 router 中指定文件存放路径">
+<meta name="twitter:description" content="Express+multer 文件上传,并在 router 中指定文件存放路径 内容简单说明&amp;emsp;&amp;emsp;文件上传是 web 开发中比较常见的一个功能虽然说起来是文件上传，实际上，可以看做是对 multipart/form-data 数据的处理。在 npm 中,有很多处理类似数据的库，包括周下载量近 2kw 的 form-data，周下载量近 3mw 的 formidable。 &amp;ems">
+<meta name="twitter:image" content="http://yoursite.com/images/other/programming.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">My mind will never lie！</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/">index.首页</a> -->
+                                    <a class="main-nav-list-link" href="/">首页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/">一般文学</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/文读影评/">文读影评</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/">心理说法</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/">技术文章</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/angular/">angular</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/docker/">docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/nodejs/">nodejs</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/">绝望系列</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/categoryExplain/index.html">index.分类说明</a> -->
+                                    <a class="main-nav-list-link" href="/categoryExplain/index.html">分类说明</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/about/index.html">index.关于</a> -->
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/技术文章/nodejs/">nodejs</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-TechnicalArticles/express-multer-demo" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Express+multer 文件上传,并在 router 中指定文件存放路径
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/12/TechnicalArticles/express-multer-demo/" class="article-date">
+            <time datetime="2019-12-12T11:06:12.000Z" itemprop="datePublished">2019-12-12 19:06:12</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/multer/">multer</a>, <a class="tag-link" href="/tags/nodejs/">nodejs</a>
+    </div>
+
+                本文字数：<span class="post-count"> ≈ 2.4k</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                预计耗时：<span class="post-count">10</span>分钟 &nbsp;&nbsp;&nbsp;&nbsp;
+                查看次数：<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>次
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <p>Express+multer 文件上传,并在 router 中指定文件存放路径</p>
+<h1 id="内容简单说明"><a href="#内容简单说明" class="headerlink" title="内容简单说明"></a>内容简单说明</h1><p>&emsp;&emsp;文件上传是 web 开发中比较常见的一个功能虽然说起来是文件上传，实际上，可以看做是对 multipart/form-data 数据的处理。在 npm 中,有很多处理类似数据的库，包括周下载量近 2kw 的 form-data，周下载量近 3mw 的 formidable。</p>
+<p>&emsp;&emsp;不过，如果 nodejs 后端使用的 express 框架，其官方也有一个自己的文件上传中间件，用它自己的话来说就是：“Multer 是一个 node.js 中间件，用于处理 multipart/form-data 类型的表单数据，它主要用于上传文件。”</p>
+<p>&emsp;&emsp;使用 multer 比较简单，一般就是<br>&emsp;&emsp;&emsp;&emsp;1、导入 multer，<br>&emsp;&emsp;&emsp;&emsp;2、指定文件上传地址（如果有必要的话，不指定只是写到内存中），<br>&emsp;&emsp;&emsp;&emsp;3、在 router 的路径后，回调函数前，写一个<code>upload.single(photo)</code>（单文件）或者<code>upload.array(&#39;photos&#39;, 12)</code>（多文件），在 router 的回调中，就可以使用<code>req.file 或者 req.files</code>获取文件了。</p>
+<p>&emsp;&emsp;在这里，因为指定的上传地址是在 multer(opts)中的 opts 配置，所以 opts 配置号一个地址之后，后续修改就不是那么方便。如果需要对不同文件不同路由路径指定不同的文件上传地址，那应该如何处理？</p>
+<p>&emsp;&emsp;multer 的简单使用后文会给个示例，但是最终的目的，<strong>是想要在 express 的 router 回调函数中，可以指定文件上传的路径，而不是所有的文件都上传到唯一指定的路径。</strong>例如，路由是“testUpload”，我在 router 处理时指定存放到测试使用的上传路径。路由是“formalUpload”，我在处理时可以指定存放到正式的上传路径。</p>
+<h1 id="express-multer-基本文件上传示例"><a href="#express-multer-基本文件上传示例" class="headerlink" title="express+multer 基本文件上传示例"></a>express+multer 基本文件上传示例</h1><p>&emsp;&emsp;因为主要是测试 multer 内容，所以一切从简，就在一个简单的 express 项目中测试就好</p>
+<h2 id="1、创建一个-express-项目（前提：已安装-express-generator），并安装-multer"><a href="#1、创建一个-express-项目（前提：已安装-express-generator），并安装-multer" class="headerlink" title="1、创建一个 express 项目（前提：已安装 express-generator），并安装 multer"></a>1、创建一个 express 项目（前提：已安装 express-generator），并安装 multer</h2><pre><code>express --view=ejs express-mutler-demo
+// 进入项目根目录
+npm i multer</code></pre><h2 id="2、上传页面编写"><a href="#2、上传页面编写" class="headerlink" title="2、上传页面编写"></a>2、上传页面编写</h2><p>&emsp;&emsp;修改 views/index.ejs 的<body>标签内容如下：</body></p>
+<pre><code class="javascript">  &lt;div&gt;
+    &lt;h3&gt;Express + multer 簡陋上傳文件&lt;/h3&gt;
+    &lt;form method=&quot;post&quot; action=&quot;/upload&quot; id=&quot;upload-form&quot; encType=&quot;multipart/form-data&quot;&gt;
+      &lt;input id=&#39;upload&#39; type=&quot;file&quot; name=&quot;file&quot; /&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;上傳&quot;&gt;
+    &lt;/form&gt;
+
+    &lt;!-- 进度条 --&gt;
+    &lt;progress id=&quot;uploadprogress&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;0&quot;&gt;0&lt;/progress&gt;
+    &lt;p id=&#39;msg&#39;&gt;&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 引入jquery.js --&gt;
+  &lt;script src=&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;
+    integrity=&quot;sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=&quot; crossorigin=&quot;anonymous&quot;&gt;&lt;/script&gt;
+
+  &lt;script&gt;
+    let form = $(&quot;#upload-form&quot;);
+    form.on(&#39;submit&#39;, function (event) {
+
+      // 清除提交结果显示信息
+      $(&quot;#msg&quot;).html(&quot;&quot;);
+
+      // 在原页面处理，不跳转
+      event.preventDefault();
+
+      // 检查是否支持FormData
+      if (window.FormData) {
+        let formData = new FormData();
+
+        // 建立一个file表单项，值为上传的文件
+        formData.append(&#39;file&#39;, $(&#39;#upload&#39;).get(0).files[0]);
+        let xhr = new XMLHttpRequest();
+        xhr.open(&#39;POST&#39;, $(this).attr(&#39;action&#39;));
+
+        // 进度条占比计算
+        xhr.upload.onprogress = function (event) {
+          if (event.lengthComputable) {
+            let complete = (event.loaded / event.total * 100 | 0);
+            $(&quot;#uploadprogress&quot;).val(complete);
+            $(&quot;#uploadprogress&quot;).innerHTML = complete;
+          }
+        };
+        // 定义上传完成后的回调函数
+        xhr.onload = function (e) {
+          if (xhr.status === 200) {
+            $(&quot;#msg&quot;).html(&quot;上传成功!&quot;);
+            // alert(&#39;上传成功！&#39;);
+          } else {
+            // alert(&#39;文件上传出错了！&#39;)
+            $(&quot;#msg&quot;).html(&quot;上传失败!&quot;);
+          }
+        };
+        // 发送表单数据
+        xhr.send(formData);
+      }
+    });
+  &lt;/script&gt;</code></pre>
+<p>&emsp;&emsp;代码内容很简单，就是一个 form 用来模拟文件上传，为了最简单，直接使用的 XMLHttpRequest 实现上传，还没事整了个进度条。<br>&emsp;&emsp;本来想用原始的方法，还是引入了 jquery。更简略类似下面也 ok。</p>
+<pre><code>&lt;script&gt;
+    function PostData() {
+        $.ajax({
+            type: &quot;POST&quot;,
+            url: &quot;XXX&quot;,
+            data : &quot;&quot;,
+            success: function(msg) {
+            }
+        });
+        return false;
+    }
+&lt;/script&gt;
+&lt;form onsubmit=&quot;return PostData()&quot;&gt;
+    &lt;input type=&quot;text&quot; value=&quot;&quot;&gt;
+    &lt;input type=&quot;submit&quot;&gt;
+&lt;/form&gt;</code></pre><p>&emsp;&emsp;依旧以第一个为准，页面大概是这个样子（运行 express 项目，在 localhost:3000 看到）：</p>
+<p><img src="/../images/TA/express-multer-demo/pic/input%E7%94%BB%E9%9D%A2.png" alt="input画面"></p>
+<h2 id="3、multer-的简单配置"><a href="#3、multer-的简单配置" class="headerlink" title="3、multer 的简单配置"></a>3、multer 的简单配置</h2><p>&emsp;&emsp;新建一个 util/Upload.js，编写 multer 配置并导出：</p>
+<pre><code>const multer = require(&#39;multer&#39;);
+
+// 文件上传配置
+const fileStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, &quot;/defaultUploadDir&quot;);
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.originalname);
+    }
+});
+// 导出配置
+module.exports = {
+    fileUpdate: multer({ &#39;storage&#39;: fileStorage }),
+}</code></pre><p><strong>注意：上传地址 “/defaultUploadDir”要先手动创建，否则报错。</strong></p>
+<h2 id="4、在对应-router-中使用-multer"><a href="#4、在对应-router-中使用-multer" class="headerlink" title="4、在对应 router 中使用 multer"></a>4、在对应 router 中使用 multer</h2><p>&emsp;&emsp;在 routes/index.js 中，添加以下 router 代码：</p>
+<pre><code>router.post(&#39;/upload&#39;, upload.fileUpdate.single(&#39;file&#39;), function (req, res, next) {
+
+  const file = req.file;
+  console.log(file);
+
+  //如果得到了文件，就返回上传成功
+  if (file) {
+    return res.status(200).json({ success: true });
+  } else {
+    return res.status(500).json({ success: false });
+  }
+});</code></pre><p>&emsp;&emsp;记得在最上面引入 multer 配置：</p>
+<pre><code>const upload = require(&#39;../util/Upload&#39;);</code></pre><p>&emsp;&emsp;几个简单注意点：<br>&emsp;&emsp;&emsp;&emsp;1、这个路由路径和路由方法，要和前台页面中的 action 和 method 一致；<br>&emsp;&emsp;&emsp;&emsp;2、多文件就要 upload.array(),单文件就用 upload.single()（后续都是单文件示例中说明）;<br>&emsp;&emsp;&emsp;&emsp;3、第二点()里面的标志字符串要和前台页面中的<code>&lt;input id=&#39;upload&#39; type=&quot;file&quot; name=&quot;file&quot; /&gt;</code>name 属性一致。</p>
+<p>&emsp;&emsp;如果步骤都正确，成功上传，应该可以看到前台页面如下：<br><img src="/../images/TA/express-multer-demo/pic/%E4%B8%8A%E4%BC%A0%E6%88%90%E5%8A%9F.png" alt="上传成功"></p>
+<p>&emsp;&emsp;router 的回调中取得上传文件的信息，如下：<br><img src="/../images/TA/express-multer-demo/pic/%E4%B8%8A%E4%BC%A0%E6%88%90%E5%8A%9Frouter%E5%8F%96%E5%BE%97%E6%96%87%E4%BB%B6%E4%BF%A1%E6%81%AF.png" alt="上传成功router取得文件信息"></p>
+<p>&emsp;&emsp;文件上传的位置：<br><img src="/../images/TA/express-multer-demo/pic/%E7%AC%AC%E4%B8%80%E6%AC%A1%E4%B8%8A%E4%BC%A0%E6%88%90%E5%8A%9F%E5%90%8E%E5%8F%B0%E5%9C%B0%E5%9D%80.png" alt="第一次上传成功后台地址"></p>
+<h1 id="关于使用-multer-文本域数据"><a href="#关于使用-multer-文本域数据" class="headerlink" title="关于使用 multer 文本域数据"></a>关于使用 multer 文本域数据</h1><p>&emsp;&emsp;multer 的 readme 所说：”Multer 会添加一个 body 对象 以及 file 或 files 对象 到 express 的 request 对象中。 body 对象包含表单的文本域信息，file 或 files 对象包含对象表单上传的文件信息。“<br>&emsp;&emsp;实际测试，在前台页面 index.ejs 创建 formData 后，append 一个文本数据：</p>
+<pre><code>let formData = new FormData();
+
+// 补入此句
+formData.append(&#39;dest&#39;, &#39;file_upload&#39;);
+</code></pre><p>&emsp;&emsp;刷新页面之后，重新上传，可以在 multer 配置中，在 diskStorage 的 destination 的 callback 中，可以得到 req.body 包含了 dest 属性。如下图：<br><img src="/../images/TA/express-multer-demo/pic/req.body%E8%8E%B7%E5%8F%96%E6%96%87%E6%9C%AC%E5%9F%9F%E6%95%B0%E6%8D%AE.png" alt="req.body获取文本域数据"></p>
+<p>&emsp;&emsp;这是好事，很好的，这样，在前台上传文件时，就可以把需要上传的地址放到这里，那么不同的文件上传就可以存放的不同的地址了。<br>&emsp;&emsp;那么会有哪些问题呢？<br>&emsp;&emsp;&emsp;&emsp;1、前端需要知道后台的上传路径，不合理。<br>&emsp;&emsp;&emsp;&emsp;2、并不是所有使用 formData.append()添加的属性都能在文件上传 destination 生成前，在 req.body 中获取到。</p>
+<p>&emsp;&emsp;&emsp;&emsp;这是一个实际遇到的问题，我在使用 angular 时，使用 HttpClient 实现文件上传操作，类似：</p>
+<pre><code>  upload(file: any) {
+    // 文件使用FormData发送
+    const formData: FormData = new FormData();
+    formData.append(&#39;file&#39;, file, file.name);
+    formData.append(&#39;file_name&#39;, file, file.name);
+    return this.http.post(this.URL + &#39;/upload&#39;, formData );
+  }</code></pre><p>&emsp;&emsp;后台的 req.body 在获取到上传的文件前并不会有 file_name 属性的值，即在 multer 配置在 diskStorage 的 destination 的 callback 中，可以得到 req.body 是空，在对应 upload 的 router 回调中，才取得 req.body 的 file_name 属性。</p>
+<h1 id="在-router-的回调中，指定文件上传的路径。"><a href="#在-router-的回调中，指定文件上传的路径。" class="headerlink" title="在 router 的回调中，指定文件上传的路径。"></a>在 router 的回调中，指定文件上传的路径。</h1><p>&emsp;&emsp;在”关于使用 multer 文本域数据“这部分有讲到，前台直接传入文件上传的路径不合理，在接受到上传的文件前得到指定的上传路径也不一定成功，而直接使用配置好的 multer，其文件上传目的地 destination 又只有固定一个。该如何实现？</p>
+<p>&emsp;&emsp;<strong>把 multer 的配置，封装到一个返回 promise 的函数，指定传入一个文件路径参数，并在 router 的回调中使用该函数，传入上传路径。</strong></p>
+<p>&emsp;&emsp;修改 utils/Upload.js 文件，补入以下内容：</p>
+<pre><code>// multer文件上传,可指定上传路径,不在router参数里直接用
+let uploadFunction = (req, res, dest) =&gt; {
+
+    let storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            let newDestination = dest;
+            let stat = null;
+            try {
+                // 检查传入的路径是否存在，不存在则创件
+                stat = fs.statSync(newDestination);
+            } catch (err) {
+                fs.mkdirSync(newDestination);
+            }
+            if (stat &amp;&amp; !stat.isDirectory()) {
+                throw new Error(&#39;文件目录： &quot;&#39; + dest + &#39;已存在！&quot;&#39;);
+            }
+            cb(null, newDestination);
+        },
+        filename: function (req, file, callback) {
+            callback(null, file.originalname);
+        }
+    });
+
+    let upload = multer({
+        storage: storage
+    }).single(&#39;file&#39;);
+
+    return new Promise((resolve, reject) =&gt; {
+        upload(req, res, (err) =&gt; {
+            if (err) {
+                return reject(err);
+            }
+            resolve();
+        })
+    })
+};</code></pre><p>&emsp;&emsp;记得导出：</p>
+<pre><code>module.exports = {
+    fileUpdate: multer({ &#39;storage&#39;: fileStorage }),
+    uploadFunction,
+}</code></pre><p>&emsp;&emsp;在 router 中使用，修改原 routes/index.js 的 upload 路由如下：</p>
+<pre><code>router.post(&#39;/upload&#39;, /*upload.fileUpdate.single(&#39;file&#39;), */ async function (req, res, next) {
+
+  // 指定文件上传路径
+  let uploadPath = &#39;test_upload&#39;;
+  // 等到文件上传完成
+  await upload.uploadFunction(req, res, uploadPath);
+
+  const file = req.file;
+  console.log(req.file);
+  //如果得到了文件，就返回上传成功
+  if (file) {
+    return res.status(200).json({ success: true });
+  } else {
+    return res.status(500).json({ success: false });
+  }
+});</code></pre><p>&emsp;&emsp;当然，await 需要在 async 函数中使用，也最好放到 trycatch 中。</p>
+<p>&emsp;&emsp;如果步骤正确，结果应该和第一步中的一样，文件上传成功。在后台的项目中会新建一个 test_upload 文件夹，并有上传的文件。<br><img src="/../images/TA/express-multer-demo/pic/%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%88%90%E5%8A%9F%E4%BD%8D%E7%BD%AE.png" alt="第二次文件上传成功位置"></p>
+<p>&emsp;&emsp;代码已放到 <a href="https://github.com/Sanotsu/express-multer-demo" target="_blank" rel="noopener">github</a>，有需求可查阅。</p>
+<p>&emsp;&emsp;以上内容，全部亲测有效，如果有问题，请提出交流，谢谢。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/12/12/TechnicalArticles/express-multer-demo/" data-id="ck42r99e60025z4dd338to7x4" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "SWM Lee"
+        },
+        "headline": "Express+multer 文件上传,并在 router 中指定文件存放路径",
+        "image": "http://yoursite.com/../images/other/programming.png",
+        "keywords": "nodejs multer",
+        "genre": "技术文章 nodejs",
+        "datePublished": "2019-12-12",
+        "dateCreated": "2019-12-12",
+        "dateModified": "2019-12-12",
+        "url": "http://yoursite.com/2019/12/12/TechnicalArticles/express-multer-demo/",
+        "description": "Express+multer 文件上传,并在 router 中指定文件存放路径
+内容简单说明&emsp;&emsp;文件上传是 web 开发中比较常见的一个功能虽然说起来是文件上传，实际上，可以看做是对 multipart/form-data 数据的处理。在 npm 中,有很多处理类似数据的库，包括周下载量近 2kw 的 form-data，周下载量近 3mw 的 formidable。
+&ems"
+        "wordCount": 1389
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="valine-thread"></div>
+
+
+    
+    </section>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <!-- <p>关注我 :</p> -->
+        <p>Welcome，my friends！</p>
+        <ul class="social-links">
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/12/TechnicalArticles/object-array-sort/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            对象数组按对象指定属性排序
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/10/19/OrdinaryArticles/03poetry/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">高中创作古体诗词合集</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+<div class="widget-wrap widget-list">
+    <h3 class="widget-title">目录</h3>
+    <div class="widget">
+        <div id="toc" class="toc-article">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内容简单说明"><span class="toc-number">1.</span> <span class="toc-text">内容简单说明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#express-multer-基本文件上传示例"><span class="toc-number">2.</span> <span class="toc-text">express+multer 基本文件上传示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、创建一个-express-项目（前提：已安装-express-generator），并安装-multer"><span class="toc-number">2.1.</span> <span class="toc-text">1、创建一个 express 项目（前提：已安装 express-generator），并安装 multer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、上传页面编写"><span class="toc-number">2.2.</span> <span class="toc-text">2、上传页面编写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、multer-的简单配置"><span class="toc-number">2.3.</span> <span class="toc-text">3、multer 的简单配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、在对应-router-中使用-multer"><span class="toc-number">2.4.</span> <span class="toc-text">4、在对应 router 中使用 multer</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于使用-multer-文本域数据"><span class="toc-number">3.</span> <span class="toc-text">关于使用 multer 文本域数据</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在-router-的回调中，指定文件上传的路径。"><span class="toc-number">4.</span> <span class="toc-text">在 router 的回调中，指定文件上传的路径。</span></a></li></ol>
+        </div>
+    </div>
+</div>
+
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/TA/angular-schematics-tutorial/angular-schematics.png)" alt="Angular Schematics 简明教程" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="title">Angular Schematics 简明教程</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T12:39:17.000Z" itemprop="datePublished">2019-12-12 20:39:17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular material input输入框可以辅助下拉选择" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="title">只言片语——angular material input输入框可以辅助下拉选择</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:50:49.000Z" itemprop="datePublished">2019-12-12 19:50:49</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular ngFor遍历显示2个数组值" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="title">只言片语——angular ngFor遍历显示2个数组值</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:48:43.000Z" itemprop="datePublished">2019-12-12 19:48:43</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="Ubuntu18.04下docker基本指令和使用docker安装mysql" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/docker/">docker</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="title">Ubuntu18.04下docker基本指令和使用docker安装mysql</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:30:48.000Z" itemprop="datePublished">2019-12-12 19:30:48</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="对象数组按对象指定属性排序" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="title">对象数组按对象指定属性排序</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:23:30.000Z" itemprop="datePublished">2019-12-12 19:23:30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/">一般文学</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/文读影评/">文读影评</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/">心理说法</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/嫉妒/">嫉妒</a><span class="category-list-count">9</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/分类/">分类</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/噩梦/">噩梦</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/想梦/">想梦</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/">技术文章</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/angular/">angular</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/docker/">docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/nodejs/">nodejs</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/">绝望系列</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a><span class="category-list-count">4</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multer/">multer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/schematics/">schematics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/七言古诗/">七言古诗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/失意/">失意</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嫉妒/">嫉妒</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/孤独/">孤独</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/意志力/">意志力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文/">文</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/梦境与现实/">梦境与现实</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/绝望/">绝望</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓解嫉妒/">缓解嫉妒</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解梦/">解梦</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗/">诗</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/multer/" style="font-size: 10px;">multer</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/schematics/" style="font-size: 10px;">schematics</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/七言古诗/" style="font-size: 10px;">七言古诗</a> <a href="/tags/失意/" style="font-size: 10px;">失意</a> <a href="/tags/嫉妒/" style="font-size: 20px;">嫉妒</a> <a href="/tags/孤独/" style="font-size: 12px;">孤独</a> <a href="/tags/意志力/" style="font-size: 10px;">意志力</a> <a href="/tags/文/" style="font-size: 10px;">文</a> <a href="/tags/梦境与现实/" style="font-size: 14px;">梦境与现实</a> <a href="/tags/绝望/" style="font-size: 18px;">绝望</a> <a href="/tags/缓解嫉妒/" style="font-size: 10px;">缓解嫉妒</a> <a href="/tags/解梦/" style="font-size: 16px;">解梦</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://www.swmlee.top">swmlee</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 SWM Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice"
+                        target="_blank">PPOffice</a></p>
+                <span id="busuanzi_container_site_pv">
+                    总访问量：<span id="busuanzi_value_site_pv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="busuanzi_container_site_uv">
+                    总访客数：<span id="busuanzi_value_site_uv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="post-count">
+                    总文字数：≈ 50.9k
+                </span>
+            </div>
+            <div class="footer-plugins">
+                
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+        new Valine({
+            el: '#valine-thread' ,
+            notify:false,
+            verify:false,
+            app_id: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+            app_key: 'fVjXSYoOkStdcmUSqWYgyCgK',
+            placeholder: 'leave comment (^_^)',
+            pageSize: '10',
+            avatar: 'identicon',
+            avatar_cdn:  'https://gravatar.loli.net/avatar/'
+        });
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

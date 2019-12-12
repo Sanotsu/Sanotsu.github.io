@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>Ubuntu18.04下docker基本指令和使用docker安装mysql | 知己识人</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="ubuntu,mysql,docker">
+    
+    <meta name="description" content="docker 基本指令安装dockersudo sh -c &amp;quot;$(curl -fsSL https://get.docker.com)&amp;quot;   sudo usermod -aG docker $USER 第一行用docker官方提供的script快速安装第二行将现有的使用者加入docker群组，否则会没有权限操作docker命令。记得注销账号重登，以获取docker操作权限。">
+<meta name="keywords" content="ubuntu,mysql,docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu18.04下docker基本指令和使用docker安装mysql">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/index.html">
+<meta property="og:site_name" content="知己识人">
+<meta property="og:description" content="docker 基本指令安装dockersudo sh -c &amp;quot;$(curl -fsSL https://get.docker.com)&amp;quot;   sudo usermod -aG docker $USER 第一行用docker官方提供的script快速安装第二行将现有的使用者加入docker群组，否则会没有权限操作docker命令。记得注销账号重登，以获取docker操作权限。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/other/programming.png">
+<meta property="og:updated_time" content="2019-12-12T12:35:59.235Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu18.04下docker基本指令和使用docker安装mysql">
+<meta name="twitter:description" content="docker 基本指令安装dockersudo sh -c &amp;quot;$(curl -fsSL https://get.docker.com)&amp;quot;   sudo usermod -aG docker $USER 第一行用docker官方提供的script快速安装第二行将现有的使用者加入docker群组，否则会没有权限操作docker命令。记得注销账号重登，以获取docker操作权限。">
+<meta name="twitter:image" content="http://yoursite.com/images/other/programming.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">My mind will never lie！</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/">index.首页</a> -->
+                                    <a class="main-nav-list-link" href="/">首页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/">一般文学</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/文读影评/">文读影评</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/">心理说法</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/">技术文章</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/angular/">angular</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/docker/">docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/nodejs/">nodejs</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/">绝望系列</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/categoryExplain/index.html">index.分类说明</a> -->
+                                    <a class="main-nav-list-link" href="/categoryExplain/index.html">分类说明</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/about/index.html">index.关于</a> -->
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/技术文章/docker/">docker</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-TechnicalArticles/ubuntu-mysql-docker" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        Ubuntu18.04下docker基本指令和使用docker安装mysql
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="article-date">
+            <time datetime="2019-12-12T11:30:48.000Z" itemprop="datePublished">2019-12-12 19:30:48</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/docker/">docker</a>, <a class="tag-link" href="/tags/mysql/">mysql</a>, <a class="tag-link" href="/tags/ubuntu/">ubuntu</a>
+    </div>
+
+                本文字数：<span class="post-count"> ≈ 885</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                预计耗时：<span class="post-count">3</span>分钟 &nbsp;&nbsp;&nbsp;&nbsp;
+                查看次数：<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>次
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="docker-基本指令"><a href="#docker-基本指令" class="headerlink" title="docker 基本指令"></a>docker 基本指令</h1><h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><pre><code class="shell">sudo sh -c &quot;$(curl -fsSL https://get.docker.com)&quot;  
+sudo usermod -aG docker $USER</code></pre>
+<p>第一行用docker官方提供的script快速安装<br>第二行将现有的使用者加入docker群组，否则会没有权限操作docker命令。<br>记得注销账号重登，以获取docker操作权限。  </p>
+<p>执行<code>sudo docker run hello-world</code>查看是否安装成功。<br>如果出现以下画面则安装成功：<br><img src="/../images/TA/ubuntu-mysql-docker/%E6%B5%8B%E8%AF%95docker%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F.png" alt="测试docker安装成功"></p>
+<h2 id="常用docker基本指令"><a href="#常用docker基本指令" class="headerlink" title="常用docker基本指令"></a>常用docker基本指令</h2><p>1 启动/关闭 docker服务</p>
+<pre><code>service docker start 或者 systemctl start docker // 启动
+service docker stop 或者 systemctl stop docker // 关闭</code></pre><p>2 创建一个新的容器并运行一个命令</p>
+<pre><code>docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</code></pre><p>常用OPTIONS说明：<br>　　-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；<br>　　-d: 后台运行容器，并返回容器ID；<br>　　-i: 以交互模式运行容器，通常与 -t 同时使用；<br>　　-P: 随机端口映射，容器内部端口随机映射到主机的高端口;<br>　　-p: 指定端口映射，格式为：主机(宿主)端口:容器端口;<br>　　-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；<br>　　-e &lt;环境变量名&gt;=”&lt;值&gt;”: 设置环境变量；<br>　　–name=”<container-name>“: 为容器指定一个名称；  </container-name></p>
+<p>例如:<br>使用docker镜像nginx:latest以后台模式启动一个容器,并将容器命名为mynginx。</p>
+<pre><code>docker run --name mynginx -d nginx:latest</code></pre><p>3 只创建而不运行容器(选项同option)</p>
+<pre><code>docker create [OPTIONS] IMAGE [COMMAND] [ARG...]</code></pre><p>4 删除一个或多个容器</p>
+<pre><code>docker rm [OPTIONS] CONTAINER [CONTAINER...]</code></pre><p>OPTIONS说明：<br>　　-f :通过SIGKILL信号强制删除一个运行中的容器<br>　　-l :移除容器间的网络连接，而非容器本身<br>　　-v :-v 删除与容器关联的卷</p>
+<p>例如：<br>强制删除容器db01、db02</p>
+<pre><code>docker rm -f db01 db02</code></pre><p>5 在运行的容器中执行命令</p>
+<pre><code>docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</code></pre><p>OPTIONS说明：<br>　　 -d :分离模式: 在后台运行<br>　　-i :即使没有附加也保持STDIN 打开<br>　　-t :分配一个伪终端  </p>
+<p>6 查看已有下载镜像(images)</p>
+<pre><code>docker images</code></pre><h1 id="使用docker安装mysql"><a href="#使用docker安装mysql" class="headerlink" title="使用docker安装mysql"></a>使用docker安装mysql</h1><p>1 下载最新mysql镜像</p>
+<pre><code>docker pull mysql:latest</code></pre><p>2 运行容器</p>
+<pre><code>docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</code></pre><p>部分参数说明：<br>　　mysql-test：容器名<br>　　-p 3306:3306 ：映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过 宿主机ip:3306 访问到 MySQL 的服务。<br>　　MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 root 用户的密码。<br>3 配置mysql 使用者(user)<br>　　3.1 进入容器  </p>
+<pre><code>　　docker exec -it mysql-test bash</code></pre><p>　　3.2 登录mysql并修改root密码  </p>
+<pre><code>　　mysql -u root -p
+　　ALTER USER &#39;root&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;123456&#39;;</code></pre><p>　　3.3 添加远程登录用户 –&gt; ‘用户名‘@’主机’,%表任意都行</p>
+<pre><code>　　CREATE USER &#39;&lt;username&gt;&#39;@&#39;%&#39; IDENTIFIED WITH mysql_native_password BY &#39;&lt;password&gt;&#39;;
+　　GRANT ALL PRIVILEGES ON *.* TO &#39;&lt;username&gt;&#39;@&#39;%&#39;;</code></pre><h1 id="备份docker中mysql的数据"><a href="#备份docker中mysql的数据" class="headerlink" title="备份docker中mysql的数据"></a>备份docker中mysql的数据</h1><p>　　使用docker安装mysql可能遇到一个问题,就是如果不做其他处理,docker容器损坏,那么里面的数据就可能丢了再也找不回. 所以应当养成定时备份的好习惯。<br>　　使用以下指令，将docker容器中的mysql数据备份到宿主主机指定位置：</p>
+<pre><code>docker exec [CONTAINER] //usr/bin/mysqldump -u [USER] --password=[PASSWORD] --routines --triggers test_db &gt; /home/user/test_db_backup.sql</code></pre><p>说明：<br>　　test_db是docker中mysql的数据库名<br>　　/home/user/test_db_backup.sql 备份到宿主主机的地址和文件名</p>
+<p>将上面指令写入宿主主机的cron定时任务中就可定时将docker中mysql数据备份到本机，避免docker损坏数据就丢失了。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" data-id="ck42r99d3000hz4ddnbphsf5j" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "SWM Lee"
+        },
+        "headline": "Ubuntu18.04下docker基本指令和使用docker安装mysql",
+        "image": "http://yoursite.com/../images/other/programming.png",
+        "keywords": "ubuntu mysql docker",
+        "genre": "技术文章 docker",
+        "datePublished": "2019-12-12",
+        "dateCreated": "2019-12-12",
+        "dateModified": "2019-12-12",
+        "url": "http://yoursite.com/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/",
+        "description": "docker 基本指令安装dockersudo sh -c &quot;$(curl -fsSL https://get.docker.com)&quot;  
+sudo usermod -aG docker $USER
+第一行用docker官方提供的script快速安装第二行将现有的使用者加入docker群组，否则会没有权限操作docker命令。记得注销账号重登，以获取docker操作权限。  "
+        "wordCount": 200
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="valine-thread"></div>
+
+
+    
+    </section>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <!-- <p>关注我 :</p> -->
+        <p>Welcome，my friends！</p>
+        <ul class="social-links">
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            只言片语——angular ngFor遍历显示2个数组值
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/12/12/TechnicalArticles/object-array-sort/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">对象数组按对象指定属性排序</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+<div class="widget-wrap widget-list">
+    <h3 class="widget-title">目录</h3>
+    <div class="widget">
+        <div id="toc" class="toc-article">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#docker-基本指令"><span class="toc-number">1.</span> <span class="toc-text">docker 基本指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装docker"><span class="toc-number">1.1.</span> <span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常用docker基本指令"><span class="toc-number">1.2.</span> <span class="toc-text">常用docker基本指令</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用docker安装mysql"><span class="toc-number">2.</span> <span class="toc-text">使用docker安装mysql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#备份docker中mysql的数据"><span class="toc-number">3.</span> <span class="toc-text">备份docker中mysql的数据</span></a></li></ol>
+        </div>
+    </div>
+</div>
+
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/TA/angular-schematics-tutorial/angular-schematics.png)" alt="Angular Schematics 简明教程" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="title">Angular Schematics 简明教程</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T12:39:17.000Z" itemprop="datePublished">2019-12-12 20:39:17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular material input输入框可以辅助下拉选择" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="title">只言片语——angular material input输入框可以辅助下拉选择</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:50:49.000Z" itemprop="datePublished">2019-12-12 19:50:49</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular ngFor遍历显示2个数组值" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="title">只言片语——angular ngFor遍历显示2个数组值</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:48:43.000Z" itemprop="datePublished">2019-12-12 19:48:43</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="Ubuntu18.04下docker基本指令和使用docker安装mysql" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/docker/">docker</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="title">Ubuntu18.04下docker基本指令和使用docker安装mysql</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:30:48.000Z" itemprop="datePublished">2019-12-12 19:30:48</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="对象数组按对象指定属性排序" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="title">对象数组按对象指定属性排序</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:23:30.000Z" itemprop="datePublished">2019-12-12 19:23:30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/">一般文学</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/文读影评/">文读影评</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/">心理说法</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/嫉妒/">嫉妒</a><span class="category-list-count">9</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/分类/">分类</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/噩梦/">噩梦</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/想梦/">想梦</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/">技术文章</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/angular/">angular</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/docker/">docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/nodejs/">nodejs</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/">绝望系列</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a><span class="category-list-count">4</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multer/">multer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/schematics/">schematics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/七言古诗/">七言古诗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/失意/">失意</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嫉妒/">嫉妒</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/孤独/">孤独</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/意志力/">意志力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文/">文</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/梦境与现实/">梦境与现实</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/绝望/">绝望</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓解嫉妒/">缓解嫉妒</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解梦/">解梦</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗/">诗</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/multer/" style="font-size: 10px;">multer</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/schematics/" style="font-size: 10px;">schematics</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/七言古诗/" style="font-size: 10px;">七言古诗</a> <a href="/tags/失意/" style="font-size: 10px;">失意</a> <a href="/tags/嫉妒/" style="font-size: 20px;">嫉妒</a> <a href="/tags/孤独/" style="font-size: 12px;">孤独</a> <a href="/tags/意志力/" style="font-size: 10px;">意志力</a> <a href="/tags/文/" style="font-size: 10px;">文</a> <a href="/tags/梦境与现实/" style="font-size: 14px;">梦境与现实</a> <a href="/tags/绝望/" style="font-size: 18px;">绝望</a> <a href="/tags/缓解嫉妒/" style="font-size: 10px;">缓解嫉妒</a> <a href="/tags/解梦/" style="font-size: 16px;">解梦</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://www.swmlee.top">swmlee</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 SWM Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice"
+                        target="_blank">PPOffice</a></p>
+                <span id="busuanzi_container_site_pv">
+                    总访问量：<span id="busuanzi_value_site_pv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="busuanzi_container_site_uv">
+                    总访客数：<span id="busuanzi_value_site_uv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="post-count">
+                    总文字数：≈ 50.9k
+                </span>
+            </div>
+            <div class="footer-plugins">
+                
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+        new Valine({
+            el: '#valine-thread' ,
+            notify:false,
+            verify:false,
+            app_id: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+            app_key: 'fVjXSYoOkStdcmUSqWYgyCgK',
+            placeholder: 'leave comment (^_^)',
+            pageSize: '10',
+            avatar: 'identicon',
+            avatar_cdn:  'https://gravatar.loli.net/avatar/'
+        });
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

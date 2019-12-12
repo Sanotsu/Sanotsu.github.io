@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+
+    
+
+    
+    <title>对象数组按对象指定属性排序 | 知己识人</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+        <meta name="keywords" content="javascript">
+    
+    <meta name="description" content="引入&amp;emsp;&amp;emsp;说明：使用语言为javascript。&amp;emsp;&amp;emsp;对象数组，即数组中存放的元素是一个个对象。例如 let objArr = [     { name: &amp;quot;张三&amp;quot;, sex: &amp;#39;female&amp;#39;, age: 30, birthday: &amp;quot;1994/10/11&amp;quot; },     { name: &amp;quot;李四">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象数组按对象指定属性排序">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/TechnicalArticles/object-array-sort/index.html">
+<meta property="og:site_name" content="知己识人">
+<meta property="og:description" content="引入&amp;emsp;&amp;emsp;说明：使用语言为javascript。&amp;emsp;&amp;emsp;对象数组，即数组中存放的元素是一个个对象。例如 let objArr = [     { name: &amp;quot;张三&amp;quot;, sex: &amp;#39;female&amp;#39;, age: 30, birthday: &amp;quot;1994/10/11&amp;quot; },     { name: &amp;quot;李四">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/other/programming.png">
+<meta property="og:updated_time" content="2019-12-12T12:35:59.235Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对象数组按对象指定属性排序">
+<meta name="twitter:description" content="引入&amp;emsp;&amp;emsp;说明：使用语言为javascript。&amp;emsp;&amp;emsp;对象数组，即数组中存放的元素是一个个对象。例如 let objArr = [     { name: &amp;quot;张三&amp;quot;, sex: &amp;#39;female&amp;#39;, age: 30, birthday: &amp;quot;1994/10/11&amp;quot; },     { name: &amp;quot;李四">
+<meta name="twitter:image" content="http://yoursite.com/images/other/programming.png">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="wrap">
+        <header id="header">
+    <div id="header-outer" class="outer">
+        <div class="container">
+            <div class="container-inner">
+                <div id="header-title">
+                    <h1 class="logo-wrap">
+                        <a href="/" class="logo"></a>
+                    </h1>
+                    
+                        <h2 class="subtitle-wrap">
+                            <p class="subtitle">My mind will never lie！</p>
+                        </h2>
+                    
+                </div>
+                <div id="header-inner" class="nav-container">
+                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
+                    <div class="nav-container-inner">
+                        <ul id="main-nav">
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/">index.首页</a> -->
+                                    <a class="main-nav-list-link" href="/">首页</a>
+                                </li>
+                            
+                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/">一般文学</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/文读影评/">文读影评</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/">心理说法</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/">技术文章</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/angular/">angular</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/docker/">docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/nodejs/">nodejs</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/">绝望系列</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a></li></ul></li></ul>
+                                    
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/categoryExplain/index.html">index.分类说明</a> -->
+                                    <a class="main-nav-list-link" href="/categoryExplain/index.html">分类说明</a>
+                                </li>
+                            
+                                <li class="main-nav-list-item" >
+                                    <!-- <a class="main-nav-list-link" href="/about/index.html">index.关于</a> -->
+                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
+                                </li>
+                            
+                        </ul>
+                        <nav id="sub-nav">
+                            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+        <div class="container">
+            <div class="main-body container-inner">
+                <div class="main-body-inner">
+                    <section id="main">
+                        <div class="main-body-header">
+    <h1 class="header">
+    
+    <a class="page-title-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/技术文章/javascript/">javascript</a>
+    </h1>
+</div>
+
+                        <div class="main-body-content">
+                            <article id="post-TechnicalArticles/object-array-sort" class="article article-single article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+        对象数组按对象指定属性排序
+        </h1>
+    
+
+            </header>
+        
+        
+            <div class="article-meta">
+                
+    <div class="article-date">
+        <a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="article-date">
+            <time datetime="2019-12-12T11:23:30.000Z" itemprop="datePublished">2019-12-12 19:23:30</time>
+        </a>
+    </div>
+
+		
+
+                
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/javascript/">javascript</a>
+    </div>
+
+                本文字数：<span class="post-count"> ≈ 1.3k</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                预计耗时：<span class="post-count">5</span>分钟 &nbsp;&nbsp;&nbsp;&nbsp;
+                查看次数：<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>次
+            </div>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+            <h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><p>&emsp;&emsp;<strong>说明：使用语言为javascript。</strong><br>&emsp;&emsp;对象数组，即数组中存放的元素是一个个对象。例如</p>
+<pre><code>let objArr = [
+    { name: &quot;张三&quot;, sex: &#39;female&#39;, age: 30, birthday: &quot;1994/10/11&quot; },
+    { name: &quot;李四&quot;, sex: &#39;male&#39;, age: 20, birthday: &quot;2001/08/11&quot; },
+    { name: &quot;王五&quot;, sex: &#39;female&#39;, age: 40, birthday: &quot;2001/01/15&quot; }
+];</code></pre><p>&emsp;&emsp;但是我们可能需要对该对数组中对象的指定属性进行排序，例如上述对象数组中的age，birthday。如何操作？<strong>方法之一，就是数组的sort()方法。</strong><br>&emsp;&emsp;下面，就一步步去分析，实现一份简单通用的对象数组排序方法。</p>
+<h1 id="实现对象数组排序"><a href="#实现对象数组排序" class="headerlink" title="实现对象数组排序"></a>实现对象数组排序</h1><h2 id="第一步：简单排序number属性"><a href="#第一步：简单排序number属性" class="headerlink" title="第一步：简单排序number属性"></a>第一步：简单排序number属性</h2><p>&emsp;&emsp;因为Array.sort()的“默认排序顺序是在将元素转换为字符串，然后比较它们的UTF-16代码单元值序列时构建的”。好在是sort()方法接受一个用来指定按某种顺序进行排列的函数作为可选参数，即<code>arr.sort([compareFunction])</code>，<strong>如果 compareFunction(a, b) 小于0，那么a会被排列到b之前；</strong>所以可以在此实现自己想要的排序方法。<br><strong>注意，sort方法会改变原数组。（sort() 方法用原地算法对数组的元素进行排序，并返回数组。）</strong></p>
+<p>&emsp;&emsp;话不多说，直接看。<br>&emsp;&emsp;例如上述objArr，按照age升序排序：</p>
+<pre><code>// 指定排序的比较函数
+function compare(property) {
+    return function (object1, object2) {
+        let value1 = object1[property];
+        let value2 = object2[property];
+        // 升序
+        return value1 - value2;
+    }
+}
+let sortObj = objArr.sort(compare(&quot;age&quot;));
+console.log(sortObj); </code></pre><p>&emsp;&emsp;应该会得到如下结果：<br><img src="/../images/TA/object-array-sort/pics/%E6%8C%89%E7%85%A7age%E6%8E%92%E5%BA%8F.png" alt="按照age排序"></p>
+<h2 id="第二阶段：可以排序string属性"><a href="#第二阶段：可以排序string属性" class="headerlink" title="第二阶段：可以排序string属性"></a>第二阶段：可以排序string属性</h2><p>&emsp;&emsp;但是这个写法只能对age这个number类型的属性其作用，如果换成name或者birthday等，就不行，因为string不能直接用’-‘比较得出大小。<br>&emsp;&emsp;例如，运行<code>console.log(&#39;male&#39; - &#39;female&#39;);</code>，应该会看到得出的是NaN。<br>&emsp;&emsp;string，就应该使用localeCompare() 方法，它返回一个数字来指示一个参考字符串是否在排序顺序前面或之后或与给定字符串相同。完整语法：<code>referenceStr.localeCompare(compareString[, locales[, options]])</code>。</p>
+<p>&emsp;&emsp;所以需要简单修改一下compare()方法，修改如下：</p>
+<pre><code>function compare(property) {
+    return function (object1, object2) {
+        let value1 = object1[property];
+        let value2 = object2[property];
+
+        if (typeof (value1) == typeof (value2)) {
+            if (typeof (value1) === &#39;number&#39;) {
+                return value1 - value2;
+            }
+            if (typeof (value1) === &#39;string&#39;) {
+                // 升序
+                return value1.toString().localeCompare(value2);
+            }
+        }
+
+    }
+}
+
+let sortObj = objArr.sort(compare(&quot;birthday&quot;));
+console.log(sortObj); </code></pre><p>&emsp;&emsp;结果应当如下：<br><img src="/../images/TA/object-array-sort/pics/%E6%8C%89%E7%85%A7birthday%E6%8E%92%E5%BA%8F.png" alt="按照birthday排序.png"></p>
+<h2 id="第三阶段：可以指定升序-降序"><a href="#第三阶段：可以指定升序-降序" class="headerlink" title="第三阶段：可以指定升序/降序"></a>第三阶段：可以指定升序/降序</h2><p>&emsp;&emsp;既然已经到了这个程度，那可以再加一个是按照升序或者降序排列。<br>&emsp;&emsp;简单修改如下：</p>
+<pre><code>function compare(property, sortType = &quot;asc&quot;) {
+
+    return function (object1, object2) {
+        let value1 = object1[property];
+        let value2 = object2[property];
+
+        // 判断 传入的属性值 是number还是 string
+        if (typeof (value1) == typeof (value2)) {
+            if (typeof (value1) === &#39;number&#39;) {
+                // 如果是升序
+                if (sortType === &quot;asc&quot;) {
+                    return value1 - value2;
+                } else if (sortType === &quot;desc&quot;) {
+                    // 如果是降序
+                    return value2 - value1;
+                }
+            }
+            if (typeof (value1) === &#39;string&#39;) {
+                // 如果是升序
+                if (sortType === &quot;asc&quot;) {
+                    return value1.toString().localeCompare(value2);
+                } else if (sortType === &quot;desc&quot;) {
+                    // 如果是降序
+                    return value2.toString().localeCompare(value1);
+                }
+            }
+        }
+    }
+}
+// 生日，降序
+let sortObj = objArr.sort(compare(&quot;birthday&quot;, &#39;desc&#39;));
+console.log(sortObj); </code></pre><p>&emsp;&emsp;得到的结果应该如下：<br><img src="/../images/TA/object-array-sort/pics/%E6%8C%89birthday%E9%99%8D%E5%BA%8F%E6%8E%92%E5%BA%8F.png" alt="按birthday降序排序.png"></p>
+<h2 id="第四阶段：封裝成通用方法"><a href="#第四阶段：封裝成通用方法" class="headerlink" title="第四阶段：封裝成通用方法"></a>第四阶段：封裝成通用方法</h2><p>&emsp;&emsp;反正都这样了，再简单封装一下，导出成一个方法，后续直接使用。</p>
+<p>&emsp;&emsp;新建一个objArraySort.js,放入以下代码：</p>
+<pre><code>// sort使用的排序方法
+// 传入对象数组用于排序的对象的属性,升序/降序
+function compare(property, sortType = &quot;asc&quot;) {
+
+    // 如果不是 asc,desc,不做下一步比较
+    if (!(sortType === &quot;desc&quot; || sortType === &quot;asc&quot;)) {
+        return;
+    }
+
+    return function (object1, object2) {
+        // 取得对象属性值
+        let value1 = object1[property];
+        let value2 = object2[property];
+
+        // 如果该对象不存在这个属性,也不做后续比较
+        if (!value1 || !value2) {
+            return;
+        }
+
+        // 如果两个属性取得的值不是一个类型的就不用比较了
+        if (typeof (value1) == typeof (value2)) {
+
+            // 判断 传入的属性值 是number还是 string
+            if (typeof (value1) === &#39;number&#39;) {
+                // 如果是升序
+                if (sortType === &quot;asc&quot;) {
+                    return value1 - value2;
+                } else {
+                    // 如果是降序
+                    return value2 - value1;
+                }
+            } else if (typeof (value1) === &#39;string&#39;) {
+                // 如果是升序
+                if (sortType === &quot;asc&quot;) {
+                    return value1.toString().localeCompare(value2);
+                } else {
+                    // 如果是降序
+                    return value2.toString().localeCompare(value1);
+                }
+            } else {
+                // 其它类型就不排序了
+                return;
+            }
+        } else {
+            return;
+        }
+    }
+}
+
+// 通用方法，需要传入 需要排序的对象数组、对象属性、排序方式
+function objectArraySort(array, property, sortType) {
+
+    // 如果不是对象数组用这个方法,返回的是undefined
+    if (!(array instanceof Array)) {
+        return;
+    }
+
+    return array.sort(compare(property, sortType));
+}
+
+// 导出
+module.exports = {
+    objectArraySort: objectArraySort,
+}</code></pre><p>&emsp;&emsp;再将刚刚的objArr按照age降序排序：</p>
+<pre><code>// 引入模块
+const oas = require(&quot;./objectArraySort&quot;);
+// 调用方法，传入需要排序的对象数组、对象属性、排序方式
+let sortObj = oas.objectArraySort(objArr, &#39;age&#39;, &#39;desc&#39;);
+console.log(sortObj); </code></pre><p>&emsp;&emsp;应该会得到以下结果：<br><img src="/../images/TA/object-array-sort/pics/%E6%8C%89%E7%85%A7age%E9%99%8D%E5%BA%8F%E6%8E%92%E5%BA%8F.png" alt="按照age降序排序.png"></p>
+<p>&emsp;&emsp;至此，一个简单通用的对象数组按照其对象指定属性排序的模块就完成了。实践有效，如果有问题，可提出交流，谢谢。</p>
+
+        </div>
+        <footer class="article-footer">
+            
+
+
+
+    <a data-url="http://yoursite.com/2019/12/12/TechnicalArticles/object-array-sort/" data-id="ck42r99cx000bz4dd3d54b9ri" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
+<script>
+    (function ($) {
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+        </footer>
+    </div>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "author": {
+            "@type": "Person",
+            "name": "SWM Lee"
+        },
+        "headline": "对象数组按对象指定属性排序",
+        "image": "http://yoursite.com/../images/other/programming.png",
+        "keywords": "javascript",
+        "genre": "技术文章 javascript",
+        "datePublished": "2019-12-12",
+        "dateCreated": "2019-12-12",
+        "dateModified": "2019-12-12",
+        "url": "http://yoursite.com/2019/12/12/TechnicalArticles/object-array-sort/",
+        "description": "引入&emsp;&emsp;说明：使用语言为javascript。&emsp;&emsp;对象数组，即数组中存放的元素是一个个对象。例如
+let objArr = [
+    { name: &quot;张三&quot;, sex: &#39;female&#39;, age: 30, birthday: &quot;1994/10/11&quot; },
+    { name: &quot;李四"
+        "wordCount": 1348
+    }
+</script>
+
+</article>
+
+    <section id="comments">
+    
+        
+    <div id="valine-thread"></div>
+
+
+    
+    </section>
+
+
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                        </div>
+                    </section>
+                    <aside id="sidebar">
+    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
+    <div class="sidebar-top">
+        <!-- <p>关注我 :</p> -->
+        <p>Welcome，my friends！</p>
+        <ul class="social-links">
+            
+        </ul>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">下一篇</strong>
+        <p class="article-nav-title">
+        
+            Ubuntu18.04下docker基本指令和使用docker安装mysql
+        
+        </p>
+        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
+    </a>
+    
+    
+        <a href="/2019/12/12/TechnicalArticles/express-multer-demo/" id="article-nav-older" class="article-nav-link-wrap">
+        <strong class="article-nav-caption">上一篇</strong>
+        <p class="article-nav-title">Express+multer 文件上传,并在 router 中指定文件存放路径</p>
+        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
+        </a>
+    
+</nav>
+
+    
+    <div class="widgets-container">
+        
+            
+                
+<div class="widget-wrap widget-list">
+    <h3 class="widget-title">目录</h3>
+    <div class="widget">
+        <div id="toc" class="toc-article">
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引入"><span class="toc-number">1.</span> <span class="toc-text">引入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实现对象数组排序"><span class="toc-number">2.</span> <span class="toc-text">实现对象数组排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一步：简单排序number属性"><span class="toc-number">2.1.</span> <span class="toc-text">第一步：简单排序number属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二阶段：可以排序string属性"><span class="toc-number">2.2.</span> <span class="toc-text">第二阶段：可以排序string属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三阶段：可以指定升序-降序"><span class="toc-number">2.3.</span> <span class="toc-text">第三阶段：可以指定升序/降序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四阶段：封裝成通用方法"><span class="toc-number">2.4.</span> <span class="toc-text">第四阶段：封裝成通用方法</span></a></li></ol></li></ol>
+        </div>
+    </div>
+</div>
+
+
+            
+                
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/TA/angular-schematics-tutorial/angular-schematics.png)" alt="Angular Schematics 简明教程" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="title">Angular Schematics 简明教程</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T12:39:17.000Z" itemprop="datePublished">2019-12-12 20:39:17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular material input输入框可以辅助下拉选择" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="title">只言片语——angular material input输入框可以辅助下拉选择</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:50:49.000Z" itemprop="datePublished">2019-12-12 19:50:49</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular ngFor遍历显示2个数组值" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="title">只言片语——angular ngFor遍历显示2个数组值</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:48:43.000Z" itemprop="datePublished">2019-12-12 19:48:43</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="Ubuntu18.04下docker基本指令和使用docker安装mysql" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/docker/">docker</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="title">Ubuntu18.04下docker基本指令和使用docker安装mysql</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:30:48.000Z" itemprop="datePublished">2019-12-12 19:30:48</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/../images/other/programming.png)" alt="对象数组按对象指定属性排序" class="thumbnail-image"></span>
+    
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/javascript/">javascript</a></p>
+                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="title">对象数组按对象指定属性排序</a></p>
+                            <p class="item-date"><time datetime="2019-12-12T11:23:30.000Z" itemprop="datePublished">2019-12-12 19:23:30</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/">一般文学</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/文读影评/">文读影评</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/">心理说法</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/嫉妒/">嫉妒</a><span class="category-list-count">9</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/分类/">分类</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/噩梦/">噩梦</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/想梦/">想梦</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/">技术文章</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/angular/">angular</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/docker/">docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/nodejs/">nodejs</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/">绝望系列</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a><span class="category-list-count">4</span></li></ul></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multer/">multer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/schematics/">schematics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/七言古诗/">七言古诗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/失意/">失意</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嫉妒/">嫉妒</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/孤独/">孤独</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/意志力/">意志力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文/">文</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/梦境与现实/">梦境与现实</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/绝望/">绝望</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓解嫉妒/">缓解嫉妒</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解梦/">解梦</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗/">诗</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-float">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/multer/" style="font-size: 10px;">multer</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/schematics/" style="font-size: 10px;">schematics</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/七言古诗/" style="font-size: 10px;">七言古诗</a> <a href="/tags/失意/" style="font-size: 10px;">失意</a> <a href="/tags/嫉妒/" style="font-size: 20px;">嫉妒</a> <a href="/tags/孤独/" style="font-size: 12px;">孤独</a> <a href="/tags/意志力/" style="font-size: 10px;">意志力</a> <a href="/tags/文/" style="font-size: 10px;">文</a> <a href="/tags/梦境与现实/" style="font-size: 14px;">梦境与现实</a> <a href="/tags/绝望/" style="font-size: 18px;">绝望</a> <a href="/tags/缓解嫉妒/" style="font-size: 10px;">缓解嫉妒</a> <a href="/tags/解梦/" style="font-size: 16px;">解梦</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a>
+        </div>
+    </div>
+
+
+            
+                
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://www.swmlee.top">swmlee</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+            
+        
+    </div>
+</aside>
+
+                </div>
+            </div>
+        </div>
+        <footer id="footer">
+    <div class="container">
+        <div class="container-inner">
+            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
+            <div class="credit">
+                <h1 class="logo-wrap">
+                    <a href="/" class="logo"></a>
+                </h1>
+                <p>&copy; 2019 SWM Lee</p>
+                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice"
+                        target="_blank">PPOffice</a></p>
+                <span id="busuanzi_container_site_pv">
+                    总访问量：<span id="busuanzi_value_site_pv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span id="busuanzi_container_site_uv">
+                    总访客数：<span id="busuanzi_value_site_uv"></span>人次
+                </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="post-count">
+                    总文字数：≈ 50.9k
+                </span>
+            </div>
+            <div class="footer-plugins">
+                
+    
+
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        
+    
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+        new Valine({
+            el: '#valine-thread' ,
+            notify:false,
+            verify:false,
+            app_id: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+            app_key: 'fVjXSYoOkStdcmUSqWYgyCgK',
+            placeholder: 'leave comment (^_^)',
+            pageSize: '10',
+            avatar: 'identicon',
+            avatar_cdn:  'https://gravatar.loli.net/avatar/'
+        });
+    </script>
+
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
