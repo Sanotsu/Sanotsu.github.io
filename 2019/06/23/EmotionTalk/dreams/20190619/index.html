@@ -1,191 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="utf-8">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>梦到最近发生的事情 | 知己识人</title><meta name="description" content="梦到最近发生的事情"><meta name="keywords" content="解梦,梦境与现实"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="梦到最近发生的事情"><meta name="twitter:description" content="梦到最近发生的事情"><meta name="twitter:image" content="http://yoursite.com/../images/ET/dreams/20190619thumbnail.jpg"><meta property="og:type" content="article"><meta property="og:title" content="梦到最近发生的事情"><meta property="og:url" content="http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="梦到最近发生的事情"><meta property="og:image" content="http://yoursite.com/../images/ET/dreams/20190619thumbnail.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-    
-
-    
-    <title>梦到最近发生的事情 | 知己识人</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-        <meta name="keywords" content="解梦,梦境与现实">
-    
-    <meta name="description" content="梦醒时间：　　2019/06/19 03:13 梦境概况：场景简述　　　　梦见我和老爸跟着表弟（现实中最大的那个）去他的宿舍。表弟出去了一下，我和老爸转转，遇到周围住的一个女生，感觉这个女生一见如故。 　　然后老爸在煮面，不知道怎么说到钱的事，我和他在数钱包。然后那个女生就说：“钱嘛到处都是，要的话拿就是。”然后一个特写，她小桌子上有一卷散钱，应该就几十。然后我把我钱包里的钱取了一点，大概几十留下">
-<meta name="keywords" content="解梦,梦境与现实">
-<meta property="og:type" content="article">
-<meta property="og:title" content="梦到最近发生的事情">
-<meta property="og:url" content="http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/index.html">
-<meta property="og:site_name" content="知己识人">
-<meta property="og:description" content="梦醒时间：　　2019/06/19 03:13 梦境概况：场景简述　　　　梦见我和老爸跟着表弟（现实中最大的那个）去他的宿舍。表弟出去了一下，我和老爸转转，遇到周围住的一个女生，感觉这个女生一见如故。 　　然后老爸在煮面，不知道怎么说到钱的事，我和他在数钱包。然后那个女生就说：“钱嘛到处都是，要的话拿就是。”然后一个特写，她小桌子上有一卷散钱，应该就几十。然后我把我钱包里的钱取了一点，大概几十留下">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/ET/dreams/20190619thumbnail.jpg">
-<meta property="og:updated_time" content="2019-12-12T12:19:24.260Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="梦到最近发生的事情">
-<meta name="twitter:description" content="梦醒时间：　　2019/06/19 03:13 梦境概况：场景简述　　　　梦见我和老爸跟着表弟（现实中最大的那个）去他的宿舍。表弟出去了一下，我和老爸转转，遇到周围住的一个女生，感觉这个女生一见如故。 　　然后老爸在煮面，不知道怎么说到钱的事，我和他在数钱包。然后那个女生就说：“钱嘛到处都是，要的话拿就是。”然后一个特写，她小桌子上有一卷散钱，应该就几十。然后我把我钱包里的钱取了一点，大概几十留下">
-<meta name="twitter:image" content="http://yoursite.com/images/ET/dreams/20190619thumbnail.jpg">
-    
-
-    
-
-    
-
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
-    
-    
-        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
-    
-    
-    
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
 
 
-</head>
-</html>
-<body>
-    <div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
-                    
-                        <h2 class="subtitle-wrap">
-                            <p class="subtitle">My mind will never lie！</p>
-                        </h2>
-                    
-                </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item" >
-                                    <!-- <a class="main-nav-list-link" href="/">index.首页</a> -->
-                                    <a class="main-nav-list-link" href="/">首页</a>
-                                </li>
-                            
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/">一般文学</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/一般文学/文读影评/">文读影评</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/">心理说法</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/">技术文章</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/angular/">angular</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/docker/">docker</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/javascript/">javascript</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/技术文章/nodejs/">nodejs</a></li></ul></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/">绝望系列</a><ul class="main-nav-list-child"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a></li></ul></li></ul>
-                                    
-                                <li class="main-nav-list-item" >
-                                    <!-- <a class="main-nav-list-link" href="/categoryExplain/index.html">index.分类说明</a> -->
-                                    <a class="main-nav-list-link" href="/categoryExplain/index.html">分类说明</a>
-                                </li>
-                            
-                                <li class="main-nav-list-item" >
-                                    <!-- <a class="main-nav-list-link" href="/about/index.html">index.关于</a> -->
-                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
 
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
-    
-    <a class="page-title-link" href="/categories/心理说法/">心理说法</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/心理说法/梦之解析/">梦之解析</a><i class="icon fa fa-angle-right"></i><a class="page-title-link" href="/categories/心理说法/梦之解析/想梦/">想梦</a>
-    </h1>
-</div>
-
-                        <div class="main-body-content">
-                            <article id="post-EmotionTalk/dreams/20190619" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-        梦到最近发生的事情
-        </h1>
-    
-
-            </header>
-        
-        
-            <div class="article-meta">
-                
-    <div class="article-date">
-        <a href="/2019/06/23/EmotionTalk/dreams/20190619/" class="article-date">
-            <time datetime="2019-06-23T02:44:02.000Z" itemprop="datePublished">2019-06-23 10:44:02</time>
-        </a>
-    </div>
-
-		
-
-                
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/梦境与现实/">梦境与现实</a>, <a class="tag-link" href="/tags/解梦/">解梦</a>
-    </div>
-
-                本文字数：<span class="post-count"> ≈ 1.8k</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                预计耗时：<span class="post-count">5</span>分钟 &nbsp;&nbsp;&nbsp;&nbsp;
-                查看次数：<i class="fa fa-eye"></i> <span id="busuanzi_value_page_pv"></span>次
-            </div>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-            <h1 id="梦醒时间："><a href="#梦醒时间：" class="headerlink" title="梦醒时间："></a>梦醒时间：</h1><p>　　2019/06/19 03:13</p>
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/"><link rel="prev" title="梦到自己喜欢的游戏" href="http://yoursite.com/2019/06/30/EmotionTalk/dreams/20190628/"><link rel="next" title="梦中搞砸你擅长的事" href="http://yoursite.com/2019/06/20/EmotionTalk/dreams/20190618/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"http://swmlee.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'true',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">31</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">24</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">19</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#梦醒时间："><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">梦醒时间：</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#梦境概况："><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">梦境概况：</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#场景简述"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">场景简述　　</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#其它细节"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">其它细节</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#自我解析"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">自我解析</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#现实情况"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">现实情况</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#心理近况"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">心理近况</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#梦境反映"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">梦境反映</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#总结说明"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">总结说明</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#梦醒时间："><span class="toc-number">1.</span> <span class="toc-text">梦醒时间：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梦境概况："><span class="toc-number">2.</span> <span class="toc-text">梦境概况：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景简述"><span class="toc-number">2.1.</span> <span class="toc-text">场景简述　　</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它细节"><span class="toc-number">2.2.</span> <span class="toc-text">其它细节</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自我解析"><span class="toc-number">3.</span> <span class="toc-text">自我解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#现实情况"><span class="toc-number">3.1.</span> <span class="toc-text">现实情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心理近况"><span class="toc-number">3.2.</span> <span class="toc-text">心理近况</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梦境反映"><span class="toc-number">4.</span> <span class="toc-text">梦境反映</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结说明"><span class="toc-number">5.</span> <span class="toc-text">总结说明</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/../images/ET/dreams/20190619thumbnail.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">梦到最近发生的事情</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-06-23 10:44:02<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-12-18 21:13:43</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/心理说法/">心理说法</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/心理说法/梦之解析/">梦之解析</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/心理说法/梦之解析/想梦/">想梦</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">1.8k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 5 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="梦醒时间："><a href="#梦醒时间：" class="headerlink" title="梦醒时间："></a>梦醒时间：</h1><p>　　2019/06/19 03:13</p>
 <h1 id="梦境概况："><a href="#梦境概况：" class="headerlink" title="梦境概况："></a>梦境概况：</h1><h2 id="场景简述"><a href="#场景简述" class="headerlink" title="场景简述　　"></a>场景简述　　</h2><p>　　梦见我和老爸跟着表弟（现实中最大的那个）去他的宿舍。表弟出去了一下，我和老爸转转，遇到周围住的一个女生，感觉这个女生一见如故。</p>
 <p>　　然后老爸在煮面，不知道怎么说到钱的事，我和他在数钱包。然后那个女生就说：“钱嘛到处都是，要的话拿就是。”然后一个特写，她小桌子上有一卷散钱，应该就几十。然后我把我钱包里的钱取了一点，大概几十留下，其他和钱包都给了老爸，然后还附和着女生说：“对，我们年轻人用不了多少钱，不吃饭就能省点钱”之类的话。</p>
 <p>　　老爸煮着面，看我的钱包说着还不少，还有好几十（在给钱包的时候应该不止，不过梦里转个镜头就少了）。特写我在看装面的卷纸，上面还有几根断面条卡在粘圆筒的夹缝里。然后也看了看钱包，真的还有好几十。</p>
@@ -214,413 +97,26 @@
 <li>大表弟洗衣服叫我们接水的场景，梦里没什么逻辑，和那个钱转个镜头数量也变少了一样，我没办法和最近的现实生活中对应起来。</li>
 </ol>
 <h1 id="总结说明"><a href="#总结说明" class="headerlink" title="总结说明"></a>总结说明</h1><p>　　总的来说，这个梦的关键字是：老爸、女生、钱、表弟。老爸、钱和表弟应该是对最近经历的事情的一种反映，尤其是给钱给老爸这个动作，联系到现实情况老爸想买车一条，似乎是我忽略了生活中的一点细节。<br>　　女生这点是少有和现实对不上的角色，可能只是我内心对美好爱情的渴望体现在梦境中了。从和这个互有好感一点，反映了我现实想法，我也希望是找个能过一辈子而且感情坚实的女人，而不只是想有个女朋友的想法。<br>　　梦中反映自我需求，真实事情梦中体现。</p>
-<p align="right">2019/6/19 21:14</p>
-        </div>
-        <footer class="article-footer">
-            
+<p align="right">2019/6/19 21:14</p></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/">http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/解梦/">解梦    </a><a class="post-meta__tags" href="/tags/梦境与现实/">梦境与现实    </a></div><div class="post_share"><div class="social-share" data-image="/../images/ET/dreams/20190619thumbnail.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/06/30/EmotionTalk/dreams/20190628/"><img class="prev_cover lazyload" data-src="/../images/ET/dreams/20190628thumbnail.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>梦到自己喜欢的游戏</span></div></a></div><div class="next-post pull_right"><a href="/2019/06/20/EmotionTalk/dreams/20190618/"><img class="next_cover lazyload" data-src="/../images/ET/dreams/20190618thumbnail.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>梦中搞砸你擅长的事</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/06/30/EmotionTalk/dreams/20190628/" title="梦到自己喜欢的游戏"><img class="relatedPosts_cover lazyload" data-src="/../images/ET/dreams/20190628thumbnail.jpg"><div class="relatedPosts_title">梦到自己喜欢的游戏</div></a></div><div class="relatedPosts_item"><a href="/2019/06/20/EmotionTalk/dreams/20190618/" title="梦中搞砸你擅长的事"><img class="relatedPosts_cover lazyload" data-src="/../images/ET/dreams/20190618thumbnail.jpg"><div class="relatedPosts_title">梦中搞砸你擅长的事</div></a></div><div class="relatedPosts_item"><a href="/2019/06/20/EmotionTalk/dreams/categoryDescription/" title="梦的分类"><img class="relatedPosts_cover lazyload" data-src="/../images/ET/dreams/categoryDescription.jpg"><div class="relatedPosts_title">梦的分类</div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
 
-
-
-    <a data-url="http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/" data-id="ck42r99eo002rz4ddlfkg66mh" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "author": {
-            "@type": "Person",
-            "name": "SWM Lee"
-        },
-        "headline": "梦到最近发生的事情",
-        "image": "http://yoursite.com/../images/ET/dreams/20190619thumbnail.jpg",
-        "keywords": "解梦 梦境与现实",
-        "genre": "心理说法 梦之解析 想梦",
-        "datePublished": "2019-06-23",
-        "dateCreated": "2019-06-23",
-        "dateModified": "2019-12-12",
-        "url": "http://yoursite.com/2019/06/23/EmotionTalk/dreams/20190619/",
-        "description": "梦醒时间：　　2019/06/19 03:13
-梦境概况：场景简述　　　　梦见我和老爸跟着表弟（现实中最大的那个）去他的宿舍。表弟出去了一下，我和老爸转转，遇到周围住的一个女生，感觉这个女生一见如故。
-　　然后老爸在煮面，不知道怎么说到钱的事，我和他在数钱包。然后那个女生就说：“钱嘛到处都是，要的话拿就是。”然后一个特写，她小桌子上有一卷散钱，应该就几十。然后我把我钱包里的钱取了一点，大概几十留下"
-        "wordCount": 40
-    }
-</script>
-
-</article>
-
-    <section id="comments">
-    
-        
-    <div id="valine-thread"></div>
-
-
-    
-    </section>
-
-
-
-<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <!-- <p>关注我 :</p> -->
-        <p>Welcome，my friends！</p>
-        <ul class="social-links">
-            
-        </ul>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2019/06/30/EmotionTalk/dreams/20190628/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            梦到自己喜欢的游戏
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/2019/06/20/EmotionTalk/dreams/20190618/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">梦中搞砸你擅长的事</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
-    
-    <div class="widgets-container">
-        
-            
-                
-<div class="widget-wrap widget-list">
-    <h3 class="widget-title">目录</h3>
-    <div class="widget">
-        <div id="toc" class="toc-article">
-            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#梦醒时间："><span class="toc-number">1.</span> <span class="toc-text">梦醒时间：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梦境概况："><span class="toc-number">2.</span> <span class="toc-text">梦境概况：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#场景简述"><span class="toc-number">2.1.</span> <span class="toc-text">场景简述　　</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它细节"><span class="toc-number">2.2.</span> <span class="toc-text">其它细节</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自我解析"><span class="toc-number">3.</span> <span class="toc-text">自我解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#现实情况"><span class="toc-number">3.1.</span> <span class="toc-text">现实情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心理近况"><span class="toc-number">3.2.</span> <span class="toc-text">心理近况</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#梦境反映"><span class="toc-number">4.</span> <span class="toc-text">梦境反映</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结说明"><span class="toc-number">5.</span> <span class="toc-text">总结说明</span></a></li></ol>
-        </div>
-    </div>
-</div>
-
-
-            
-                
-    <div class="widget-wrap">
-        <h3 class="widget-title">最新文章</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/../images/TA/angular-schematics-tutorial/angular-schematics.png)" alt="Angular Schematics 简明教程" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
-                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/angular-schematics-tutorial/" class="title">Angular Schematics 简明教程</a></p>
-                            <p class="item-date"><time datetime="2019-12-12T12:39:17.000Z" itemprop="datePublished">2019-12-12 20:39:17</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular material input输入框可以辅助下拉选择" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
-                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-input-with-select/" class="title">只言片语——angular material input输入框可以辅助下拉选择</a></p>
-                            <p class="item-date"><time datetime="2019-12-12T11:50:49.000Z" itemprop="datePublished">2019-12-12 19:50:49</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/../images/other/programming.png)" alt="只言片语——angular ngFor遍历显示2个数组值" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/angular/">angular</a></p>
-                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/snippets-angular-ngfor/" class="title">只言片语——angular ngFor遍历显示2个数组值</a></p>
-                            <p class="item-date"><time datetime="2019-12-12T11:48:43.000Z" itemprop="datePublished">2019-12-12 19:48:43</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/../images/other/programming.png)" alt="Ubuntu18.04下docker基本指令和使用docker安装mysql" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/docker/">docker</a></p>
-                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/ubuntu-mysql-docker/" class="title">Ubuntu18.04下docker基本指令和使用docker安装mysql</a></p>
-                            <p class="item-date"><time datetime="2019-12-12T11:30:48.000Z" itemprop="datePublished">2019-12-12 19:30:48</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="thumbnail">
-    
-    
-        <span style="background-image:url(/../images/other/programming.png)" alt="对象数组按对象指定属性排序" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/技术文章/">技术文章</a><i class="icon fa fa-angle-right"></i><a class="article-category-link" href="/categories/技术文章/javascript/">javascript</a></p>
-                            <p class="item-title"><a href="/2019/12/12/TechnicalArticles/object-array-sort/" class="title">对象数组按对象指定属性排序</a></p>
-                            <p class="item-date"><time datetime="2019-12-12T11:23:30.000Z" itemprop="datePublished">2019-12-12 19:23:30</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">分类</h3>
-        <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/">一般文学</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/七言古诗/">七言古诗</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/一般文学/文读影评/">文读影评</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/">心理说法</a><span class="category-list-count">13</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/">情绪调节</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/情绪调节/嫉妒/">嫉妒</a><span class="category-list-count">9</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/">梦之解析</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/分类/">分类</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/噩梦/">噩梦</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/心理说法/梦之解析/想梦/">想梦</a><span class="category-list-count">2</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/">技术文章</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/angular/">angular</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/docker/">docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/javascript/">javascript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术文章/nodejs/">nodejs</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/">绝望系列</a><span class="category-list-count">6</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/人生感慨/">人生感慨</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/绝望系列/悲惨现实/">悲惨现实</a><span class="category-list-count">4</span></li></ul></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">归档</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">14</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">5</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">标签</h3>
-        <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular/">angular</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/docker/">docker</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/multer/">multer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/schematics/">schematics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ubuntu/">ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/七言古诗/">七言古诗</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/失意/">失意</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/嫉妒/">嫉妒</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/孤独/">孤独</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/意志力/">意志力</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/文/">文</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/梦境与现实/">梦境与现实</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/绝望/">绝望</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/缓解嫉妒/">缓解嫉妒</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/解梦/">解梦</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/诗/">诗</a><span class="tag-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-float">
-        <h3 class="widget-title">标签云</h3>
-        <div class="widget tagcloud">
-            <a href="/tags/angular/" style="font-size: 14px;">angular</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/multer/" style="font-size: 10px;">multer</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/schematics/" style="font-size: 10px;">schematics</a> <a href="/tags/ubuntu/" style="font-size: 10px;">ubuntu</a> <a href="/tags/七言古诗/" style="font-size: 10px;">七言古诗</a> <a href="/tags/失意/" style="font-size: 10px;">失意</a> <a href="/tags/嫉妒/" style="font-size: 20px;">嫉妒</a> <a href="/tags/孤独/" style="font-size: 12px;">孤独</a> <a href="/tags/意志力/" style="font-size: 10px;">意志力</a> <a href="/tags/文/" style="font-size: 10px;">文</a> <a href="/tags/梦境与现实/" style="font-size: 14px;">梦境与现实</a> <a href="/tags/绝望/" style="font-size: 18px;">绝望</a> <a href="/tags/缓解嫉妒/" style="font-size: 10px;">缓解嫉妒</a> <a href="/tags/解梦/" style="font-size: 16px;">解梦</a> <a href="/tags/诗/" style="font-size: 10px;">诗</a>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">链接</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://www.swmlee.top">swmlee</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-
-            
-        
-    </div>
-</aside>
-
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2019 SWM Lee</p>
-                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice"
-                        target="_blank">PPOffice</a></p>
-                <span id="busuanzi_container_site_pv">
-                    总访问量：<span id="busuanzi_value_site_pv"></span>人次
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span id="busuanzi_container_site_uv">
-                    总访客数：<span id="busuanzi_value_site_uv"></span>人次
-                </span>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="post-count">
-                    总文字数：≈ 50.9k
-                </span>
-            </div>
-            <div class="footer-plugins">
-                
-    
-
-
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        
-    
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-    <script>
-        new Valine({
-            el: '#valine-thread' ,
-            notify:false,
-            verify:false,
-            app_id: 'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
-            app_key: 'fVjXSYoOkStdcmUSqWYgyCgK',
-            placeholder: 'leave comment (^_^)',
-            pageSize: '10',
-            avatar: 'identicon',
-            avatar_cdn:  'https://gravatar.loli.net/avatar/'
-        });
-    </script>
-
-
-
-
-
-    
-        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
-    
-    
-        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
-    
-    
-
-
-
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
-
-    </div>
-</body>
-</html>
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey:'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder:'留个言吧 (^_^)',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2019 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
