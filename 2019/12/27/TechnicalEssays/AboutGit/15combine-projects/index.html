@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录 | 知己识人</title><meta name="description" content="（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录"><meta name="keywords" content="git"><meta name="author" content="SWM Lee"><meta name="copyright" content="SWM Lee"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录"><meta name="twitter:description" content="（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录"><meta name="twitter:image" content="http://yoursite.com/../images/TechnicalEssays/AboutGit/combine-projects/1.png"><meta property="og:type" content="article"><meta property="og:title" content="（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录"><meta property="og:url" content="http://yoursite.com/2019/12/27/TechnicalEssays/AboutGit/15combine-projects/"><meta property="og:site_name" content="知己识人"><meta property="og:description" content="（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录"><meta property="og:image" content="http://yoursite.com/../images/TechnicalEssays/AboutGit/combine-projects/1.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'false'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="http://yoursite.com/2019/12/27/TechnicalEssays/AboutGit/15combine-projects/"><link rel="prev" title="（十六）Git进阶与测试--将单一项目拆成多个小项目并保留各自的历史记录" href="http://yoursite.com/2019/12/28/TechnicalEssays/AboutGit/16project-split/"><link rel="next" title="（十四）Git进阶与测试--如何把文件真正的从Git里删除" href="http://yoursite.com/2019/12/26/TechnicalEssays/AboutGit/14delete-file-permanently/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"http://swmlee.com/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'false',
+  highlight_lang: 'true',
+  highlight_shrink: 'true',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  copyright: undefined,
+  copy_copyright_js: false,
+  ClickShowText: undefined,
+  medium_zoom: 'false',
+  Snackbar: undefined
+  
+}</script></head><body><div id="header"> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">知己识人</a></span><i class="fa fa-bars fa-fw toggle-menu pull_right close" aria-hidden="true"></i><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></div><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="lazyload avatar_img" src="/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item is_center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">65</div></a></div></div><div class="mobile_data_item is_center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">32</div></a></div></div><div class="mobile_data_item is_center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">26</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#测试过程"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">测试过程</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#前置说明"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">前置说明</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#项目准备"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">项目准备</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#大概流程："><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">大概流程：</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#测试步骤"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">测试步骤</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#1-进入-dayjs-文件夹，将-moment-作为远程仓库添加到-dayjs-来"><span class="toc_mobile_items-number">1.4.1.</span> <span class="toc_mobile_items-text">1 进入 dayjs 文件夹，将 moment 作为远程仓库添加到 dayjs 来</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#2-合并添加的库-moment-到原本的-dayjs-项目"><span class="toc_mobile_items-number">1.4.2.</span> <span class="toc_mobile_items-text">2 合并添加的库 moment 到原本的 dayjs 项目</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#3-创建-mtool-文件夹，把-moment-的-develop-分支合并到-mtool-文件夹"><span class="toc_mobile_items-number">1.4.3.</span> <span class="toc_mobile_items-text">3 创建 mtool 文件夹，把 moment 的 develop 分支合并到 mtool 文件夹</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#4-完成-moment-转移提交"><span class="toc_mobile_items-number">1.4.4.</span> <span class="toc_mobile_items-text">4 完成 moment 转移提交</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#5-完成-dayjs-文件的迁移"><span class="toc_mobile_items-number">1.4.5.</span> <span class="toc_mobile_items-text">5 完成 dayjs 文件的迁移</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#6-完成项目合并并查看历史记录"><span class="toc_mobile_items-number">1.4.6.</span> <span class="toc_mobile_items-text">6 完成项目合并并查看历史记录</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#总结："><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">总结：</span></a></li></ol></div></div><div id="body-wrap"><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#测试过程"><span class="toc-number">1.</span> <span class="toc-text">测试过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前置说明"><span class="toc-number">1.1.</span> <span class="toc-text">前置说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目准备"><span class="toc-number">1.2.</span> <span class="toc-text">项目准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#大概流程："><span class="toc-number">1.3.</span> <span class="toc-text">大概流程：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试步骤"><span class="toc-number">1.4.</span> <span class="toc-text">测试步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-进入-dayjs-文件夹，将-moment-作为远程仓库添加到-dayjs-来"><span class="toc-number">1.4.1.</span> <span class="toc-text">1 进入 dayjs 文件夹，将 moment 作为远程仓库添加到 dayjs 来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-合并添加的库-moment-到原本的-dayjs-项目"><span class="toc-number">1.4.2.</span> <span class="toc-text">2 合并添加的库 moment 到原本的 dayjs 项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-创建-mtool-文件夹，把-moment-的-develop-分支合并到-mtool-文件夹"><span class="toc-number">1.4.3.</span> <span class="toc-text">3 创建 mtool 文件夹，把 moment 的 develop 分支合并到 mtool 文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-完成-moment-转移提交"><span class="toc-number">1.4.4.</span> <span class="toc-text">4 完成 moment 转移提交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-完成-dayjs-文件的迁移"><span class="toc-number">1.4.5.</span> <span class="toc-text">5 完成 dayjs 文件的迁移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-完成项目合并并查看历史记录"><span class="toc-number">1.4.6.</span> <span class="toc-text">6 完成项目合并并查看历史记录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结："><span class="toc-number">2.</span> <span class="toc-text">总结：</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(/../images/TechnicalEssays/AboutGit/combine-projects/1.png)"><div id="post-info"><div id="post-title"><div class="posttitle">（十五）Git进阶与测试--合并两个项目为一个并保留合并前所有历史记录</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-12-27 19:27:45<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-12-30 20:50:46</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/">技术文章</a><i class="fa fa-angle-right" aria-hidden="true"></i><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/技术文章/Git-Gitlba系列/">Git/Gitlba系列</a></span><div class="post-meta-wordcount"><i class="fa fa-file-word-o post-meta__icon" aria-hidden="true"></i><span>字数总计: </span><span class="word-count">1.7k</span><span class="post-meta__separator">|</span><i class="fa fa-clock-o post-meta__icon" aria-hidden="true"></i><span>阅读时长: 6 分钟</span><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true">       </i><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><p>本章主要测试讲解</p>
+<ul>
+<li>如何将两个 git 管理的项目合并成一个项目，并保留住各自项目中所有的历史提交记录。(后续可以自行拓展到三个、四个……的合并)</li>
+</ul>
+<p>本篇内容，不建议跳过，如果有这个需求，还请仔细详细查看，谢谢。</p>
+<h1 id="测试过程"><a href="#测试过程" class="headerlink" title="测试过程"></a>测试过程</h1><h2 id="前置说明"><a href="#前置说明" class="headerlink" title="前置说明"></a>前置说明</h2><p>git 管理的项目合并，还要保留之前的提交历史记录，则表明不能直接异动到原项目.git 文件夹仓库，需要通过其它方式把子项目的.git 文件夹合并到一起，才能保存住所有提交信息。</p>
+<h2 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h2><ul>
+<li>先从 github 克隆了两个项目用于测试，一个是 dayjs，一个是 moment；</li>
+<li>计划是把 dayjs 和 moment 合并为一个项目，名为 timetools；<ul>
+<li>该项目包含两个文件夹，一是 dtool，对应原本的 dayjs；</li>
+<li>二是 mtool，对应原本的 moment。</li>
+</ul>
+</li>
+</ul>
+<p>效果，合并前</p>
+<pre><code>- dayjs                 =&gt; 独立的 dayjs 项目，有自己的.gitignore 和 .git/
+- moment                =&gt; 独立的 moment 项目，有自己的.gitignore 和 .git/</code></pre><p>合并后：</p>
+<pre><code>- timetools/            =&gt; 即最开始的 dayjs，整合完后更名
+  - .gitignore          =&gt; 合并两个 repos 的忽略文件
+  - .git/               =&gt; 最终仅余一个 repo
+  + dtool/              =&gt; 对应 dayjs
+  + mtool/              =&gt; 对应 moment</code></pre><p>克隆的项目，内容如下：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/1.png" class="lazyload"></p>
+<p>使用<code>git log --oneline | wc -l</code>获取提交数量。</p>
+<p>粗略可见，dayjs 的提交为 1046 次，moment 提交为 3724 次。<br><strong>注意分支名，dayjs 为 dev，moment 为 develop。</strong></p>
+<h2 id="大概流程："><a href="#大概流程：" class="headerlink" title="大概流程："></a>大概流程：</h2><ul>
+<li>1 进入 dayjs 文件夹，将 moment 作为远程仓库添加到 dayjs 来；</li>
+<li>2 合并添加的库 moment 到原本的 dayjs 项目；</li>
+<li>3 创建 mtool 文件夹，把 moment 的 develop 分支合并到 mtool 文件夹；</li>
+<li>4 完成 moment 转移提交；</li>
+<li>5 完成 dayjs 文件的迁移；</li>
+<li>6 完成项目合并并查看历史记录。</li>
+</ul>
+<h2 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h2><h3 id="1-进入-dayjs-文件夹，将-moment-作为远程仓库添加到-dayjs-来"><a href="#1-进入-dayjs-文件夹，将-moment-作为远程仓库添加到-dayjs-来" class="headerlink" title="1 进入 dayjs 文件夹，将 moment 作为远程仓库添加到 dayjs 来"></a>1 进入 dayjs 文件夹，将 moment 作为远程仓库添加到 dayjs 来</h3><p>使用命令：</p>
+<pre><code>git remote add -f moment D:/davidsu/Desktop/GitlabTest/full/moment</code></pre><p>命令说明：<br><code>git remote add</code> 添加远程仓库路径</p>
+<ul>
+<li>-f 的作用是在添加后立刻 fetch。</li>
+<li><code>D:/davidsu/Desktop/GitlabTest/full/</code>为需要被合并 moment 项目的<strong>绝对路径</strong> 。</li>
+</ul>
+<p>如下图：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/2.png" class="lazyload"></p>
+<h3 id="2-合并添加的库-moment-到原本的-dayjs-项目"><a href="#2-合并添加的库-moment-到原本的-dayjs-项目" class="headerlink" title="2 合并添加的库 moment 到原本的 dayjs 项目"></a>2 合并添加的库 moment 到原本的 dayjs 项目</h3><p>使用命令（注意分支名）：</p>
+<pre><code>git merge --strategy ours --no-commit --allow-unrelated-histories moment/develop</code></pre><p>命令说明：<br><code>git merge</code> 为合并分支</p>
+<ul>
+<li>–strategy ours 解析合并，在合并时，如果遇到冲突，以我的为准。（本例是在 dayjs 中合并 moment，遇到冲突以 dayjs 的为准）。结果就是：<ul>
+<li>moment 的历史记录被合并到 dayjs 的历史记录中。</li>
+<li>moment 的文件树被读取并和 dayjs 的文件树比对进行冲突解析。</li>
+</ul>
+</li>
+<li>–no-commit 合并解析完成后中断，停留在最后的提交步骤之前。<ul>
+<li>只要你还没 commit，那么 merge 的结果就暂时保存在缓存区中，只有完成提交步骤合并才算彻底完成（文件树被正式改变）。</li>
+</ul>
+</li>
+<li>–allow-unrelated-histories 允许合并无关的历史记录。<ul>
+<li>如果不添加此选项，可能会出现<code>fatal: refusing to merge unrelated histories</code>错误。</li>
+</ul>
+</li>
+</ul>
+<p>如下图：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/3.png" class="lazyload"></p>
+<h3 id="3-创建-mtool-文件夹，把-moment-的-develop-分支合并到-mtool-文件夹"><a href="#3-创建-mtool-文件夹，把-moment-的-develop-分支合并到-mtool-文件夹" class="headerlink" title="3 创建 mtool 文件夹，把 moment 的 develop 分支合并到 mtool 文件夹"></a>3 创建 mtool 文件夹，把 moment 的 develop 分支合并到 mtool 文件夹</h3><p>使用命令：</p>
+<pre><code class="sh">mkdir mtool    # 创建文件夹
+git read-tree --prefix=mtool/ -u moment/develop</code></pre>
+<p>命令说明：<br><code>git read-tree</code> 给定的树信息读入索引</p>
+<ul>
+<li>–prefix 用于指定文件树读取后保存的路径，相对于当前路径并且一定要追加 /。</li>
+<li>-u 是说在读取后更新 index，使得 working tree 与 index 保持同步。</li>
+</ul>
+<p>这个命令的意义在于，之前的<code>git merge</code>命令可能会在解决冲突的时候，把 moment 的文件树弄得比较混乱，再使用<code>read-tree</code>去修复一下。</p>
+<p>如下图(再次提醒，=前后不要空格)：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/4.png" class="lazyload"></p>
+<h3 id="4-完成-moment-转移提交"><a href="#4-完成-moment-转移提交" class="headerlink" title="4 完成 moment 转移提交"></a>4 完成 moment 转移提交</h3><p>上一步已经修复了文件数，执行完之后，仍然在 MERGING 状态，需要提交一次修改。</p>
+<p>使用命令：</p>
+<pre><code>git commit --message &#39;完成moment 的迁移，新目录为 mtool&#39;</code></pre><p>如下图（MERGING 过成已完成）：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/5.png" class="lazyload"></p>
+<h3 id="5-完成-dayjs-文件的迁移"><a href="#5-完成-dayjs-文件的迁移" class="headerlink" title="5 完成 dayjs 文件的迁移"></a>5 完成 dayjs 文件的迁移</h3><p>以上，已把 momet 项目迁移到了 dayjs 下的 mtool 文件夹了。现在要迁移 dayjs 文件夹了。</p>
+<p>在 dayjs 文件夹下，新建文件夹 dtool</p>
+<pre><code>mkdir dtool</code></pre><p>再把所有原本属于 dayjs 的文件移动到新建的 dtool 去。<br>也就是除了 dtool/、mtool/、.git/、.gitignore 之外的所有。</p>
+<p>剪切完之后，把这个原本的 dayjs 的文件夹重命名为 timetools。</p>
+<h3 id="6-完成项目合并并查看历史记录"><a href="#6-完成项目合并并查看历史记录" class="headerlink" title="6 完成项目合并并查看历史记录"></a>6 完成项目合并并查看历史记录</h3><p>到这一步，原本的 dayjs 项目，就变成了 timetools 项目，里面的 dtool 文件夹就是 dayjs 项目。</p>
+<p>不过还差一点，之前只是把文件放进去了，还需要合并.gitignore 文件。</p>
+<p>在新的 timetools 文件夹下，运行：</p>
+<pre><code>cat mtool/.gitignore &gt;&gt; .gitignore</code></pre><p>把原本 moment 项目，现在的 mtool 文件夹下的.gitignore 的内容，合并到现在 timetools 文件夹下的.gitignore 中，完成忽略文件的合并。</p>
+<p>如下图：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/6.png" class="lazyload"></p>
+<p>到这里，合并作业就基本完成了，最后在添加提交一次，做合并项目的记录</p>
+<pre><code>git add --all;
+git commit --message &#39;迁移整合完成！&#39;</code></pre><p>如下图：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/7.png" class="lazyload"></p>
+<p>合并前后的文件夹结构如下：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/8.png" class="lazyload"></p>
+<p>查看合并后的项目历史记录，如下图：</p>
+<p><img alt="1" data-src="/../images/TechnicalEssays/AboutGit/combine-projects/9.png" class="lazyload"></p>
+<p>提交数：4772 = 1046 + 3724 + 2。</p>
+<h1 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h1><p>以上，完成了两个项目合并到一个项目的示例接操作演示，后续有更多的项目想要合并，可以类似。</p>
+<p>本示例使用步驟</p>
+<ul>
+<li>进入 dayjs</li>
+<li>git remote add -f moment D:/davidsu/Desktop/GitlabTest/full/moment</li>
+<li>git merge –strategy ours –no-commit –allow-unrelated-histories moment/develop</li>
+<li>mkdir mtool</li>
+<li>git read-tree –prefix=mtool/ -u moment/develop</li>
+<li>git commit –message ‘完成 moment 的迁移，新目录为 mtool’</li>
+<li>mkdir dtool （还在 dayjs 下面）</li>
+<li>拷贝 dayjs 的原始项目文件（除了 .git/ 和 .gitignore 以外）至 dtool/；</li>
+<li>拷贝完之后，可以把原本文件夹名 dayjs 改为 timetools；</li>
+<li>把此时 mtool 下的.gitignore 文件内容，整理合并到 timetools 下的.gitignore 文件中去。</li>
+<li>合并完之后，再全部添加提交一次，做为整合操作的记录：<ul>
+<li>git add –all; git commit –message ‘迁移整合完成！’</li>
+</ul>
+</li>
+</ul>
+<p><strong>整理引用原作者步骤：</strong><br>目标：将 frontend 项目与 backend 项目，合并到 project 项目下的 client 文件夹与 server 文件夹。</p>
+<blockquote>
+<ol>
+<li>$ [~] <code>cd frontend</code></li>
+<li>$ [frontend] <code>git remote add -f backend /fullpath/to/backend</code></li>
+<li>$ [frontend] <code>git merge --strategy ours --no-commit backend/master</code></li>
+<li>$ [frontend] <code>mkdir -p server</code></li>
+<li>$ [frontend] <code>git read-tree --prefix=server/ -u backend/master</code></li>
+<li>$ [frontend] <code>git commit --message &#39;完成 backend 的迁移，新目录为 server&#39;</code></li>
+<li>$ [frontend] <code>mkdir -p client</code></li>
+<li><code># 拷贝 frontend 的原始项目文件(除了 .git/ 和 .gitignore 以外) 至 client/</code></li>
+<li>$ [frontend] <code>cd ..; mv frontend/ project/; cd project</code></li>
+<li>$ [project] <code>cat server/.gitignore &gt;&gt; .gitignore</code></li>
+<li><code># 整理合并后的 .gitignore，修复其中的路径缺失并保存；修复各种项目依赖的缺失，本地测试。</code></li>
+<li>$ [project] <code>git add --all; git commit --message &#39;迁移整合完成！&#39;</code></li>
+</ol>
+</blockquote>
+<p>参考文件：<br><a href="https://segmentfault.com/a/1190000000678808" target="_blank" rel="noopener">https://segmentfault.com/a/1190000000678808</a></p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">SWM Lee</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yoursite.com/2019/12/27/TechnicalEssays/AboutGit/15combine-projects/">http://yoursite.com/2019/12/27/TechnicalEssays/AboutGit/15combine-projects/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yoursite.com">知己识人</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/git/">git    </a></div><div class="post_share"><div class="social-share" data-image="/../images/TechnicalEssays/AboutGit/combine-projects/1.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/2019/12/28/TechnicalEssays/AboutGit/16project-split/"><img class="prev_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/project-split/8.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>（十六）Git进阶与测试--将单一项目拆成多个小项目并保留各自的历史记录</span></div></a></div><div class="next-post pull_right"><a href="/2019/12/26/TechnicalEssays/AboutGit/14delete-file-permanently/"><img class="next_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/delete-file-permanently/1.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>（十四）Git进阶与测试--如何把文件真正的从Git里删除</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2019/12/30/TechnicalEssays/AboutGit/18use-git-as-a-team/" title="（十八）Git管理项目开发一般规范和开发使用Git常规作业流程"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/use-git-as-a-team/1.png"><div class="relatedPosts_title">（十八）Git管理项目开发一般规范和开发使用Git常规作业流程</div></a></div><div class="relatedPosts_item"><a href="/2019/12/29/TechnicalEssays/AboutGit/17about-git-lfs/" title="（十七）Git进阶与测试--使用Git、Git LFS搭配gitlab管控大文件"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/about-git-lfs/1.png"><div class="relatedPosts_title">（十七）Git进阶与测试--使用Git、Git LFS搭配gitlab管控大文件</div></a></div><div class="relatedPosts_item"><a href="/2019/12/28/TechnicalEssays/AboutGit/16project-split/" title="（十六）Git进阶与测试--将单一项目拆成多个小项目并保留各自的历史记录"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/project-split/8.png"><div class="relatedPosts_title">（十六）Git进阶与测试--将单一项目拆成多个小项目并保留各自的历史记录</div></a></div><div class="relatedPosts_item"><a href="/2019/12/26/TechnicalEssays/AboutGit/14delete-file-permanently/" title="（十四）Git进阶与测试--如何把文件真正的从Git里删除"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/delete-file-permanently/1.png"><div class="relatedPosts_title">（十四）Git进阶与测试--如何把文件真正的从Git里删除</div></a></div><div class="relatedPosts_item"><a href="/2019/12/25/TechnicalEssays/AboutGit/13handle-local-commit-message/" title="（十三）Git进阶与测试--多样化处理本地commit记录"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/handle-local-commit-message/1.png"><div class="relatedPosts_title">（十三）Git进阶与测试--多样化处理本地commit记录</div></a></div><div class="relatedPosts_item"><a href="/2019/12/24/TechnicalEssays/AboutGit/12git-three-undo/" title="（十二）Git进阶与测试--三种实现undo(还原)操作的命令对比"><img class="relatedPosts_cover lazyload" data-src="/../images/TechnicalEssays/AboutGit/git-three-undo/1.png"><div class="relatedPosts_title">（十二）Git进阶与测试--三种实现undo(还原)操作的命令对比</div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'n1azFlJjNxQnLAiQmPD03PvG-gzGzoHsz',
+  appKey:'fVjXSYoOkStdcmUSqWYgyCgK',
+  placeholder:'留个言吧 (^_^)',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></div><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2019 By SWM Lee</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">Hi, welcome to my <a href="http://swmlee.com/">blog</a>!</div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="/js/search/local-search.js"></script><script id="ribbon" src="/js/third-party/canvas-ribbon.js" size="150" alpha="0.6" zindex="-1" mobile="false" data-click="false"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zindex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
